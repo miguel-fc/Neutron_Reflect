@@ -67,7 +67,7 @@ def valid_epoch(encoder, decoder, device, dataloader, loss_fn):
         val_loss = loss_fn(list_decoded_img, list_img)
     return val_loss.data
 
-    def plot_ae_outputs(encoder,decoder,dataset,device,n=10):
+def plot_ae_outputs(encoder,decoder,dataset,device,n=10):
     plt.figure(figsize=(26,5.5))
     for i in range(10):
       ax = plt.subplot(2,n,i+1)
