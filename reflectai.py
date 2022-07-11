@@ -87,7 +87,7 @@ def fit(encoder, decoder, device, dataloader, loss_fn, optimizer):
 
     return np.mean(train_loss)
 
-    ### Valid function
+### Valid function
 def val(encoder, decoder, device, dataloader, loss_fn):
     encoder.eval().to(device)
     decoder.eval().to(device)
@@ -108,7 +108,7 @@ def val(encoder, decoder, device, dataloader, loss_fn):
     return val_loss.data
 
 
-#test and plot outputs
+###test and plot outputs
 def test(encoder,decoder,dataset,device,loss_fn,n=10):
     plt.figure(figsize=(26,5.5))
     for i in range(10):
@@ -132,6 +132,37 @@ def test(encoder,decoder,dataset,device,loss_fn,n=10):
          ax.set_title('Reconstructed images')
     plt.show()  
 
+
+###Get latent variables
+def get_latent_variables(encoder, decoder, device, dataloader):
+    # Set evaluation mode for encoder and decoder
+    encoder.eval()
+    decoder.eval()
+    with torch.no_grad(): 
+        # Define the lists to store the original images, the recreated ones,
+        # the latent variables and the corresponding labels
+        list_img = []
+        list_decoded_img = []
+        list_latent = []
+        list_labels = []
+
+        for  data, label in dataloader:
+            img = data
+            img = img.view(img.size(0), -1).to(device) 
+            # Encode and Decode data
+            latent = encoder(img)
+            decoded_img = decoder(latent)
+            # Append the network output and the original image to the lists
+            list_img.append(img.cpu())
+            list_decoded_img.append(decoded_img.cpu())
+            list_latent.append(latent.cpu())
+            list_labels.append(label.cpu())
+# Convert list into a torch.tensor
+        t_img = torch.cat(list_img)
+        t_decoded_img = torch.cat(list_decoded_img)
+        t_latent = torch.cat(list_latent) 
+        t_labels = torch.cat(list_labels)
+    return t_img, t_decoded_img, t_latent, t_labels
 
 def plot_ae_outputs(encoder,decoder,dataset,device,n=10):
     plt.figure(figsize=(26,5.5))
