@@ -109,7 +109,7 @@ def val(encoder, decoder, device, dataloader, loss_fn):
 
 
 ###test and plot outputs
-def test(encoder,decoder,dataset,device,loss_fn,n=10):
+def test(encoder,decoder,dataset,device,loss_fn,in_d1,in_d2,n=10):
     plt.figure(figsize=(26,5.5))
     for i in range(10):
       ax = plt.subplot(2,n,i+1)
