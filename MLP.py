@@ -45,7 +45,7 @@ class MLP(nn.Module):
 
 ### Training function
 def fit(model, device, dataloader, loss_fn, optimizer):
-    model.train()
+    model.train().to(device)
     train_loss = []
     for data,label in dataloader: 
         img = data
@@ -65,7 +65,7 @@ def fit(model, device, dataloader, loss_fn, optimizer):
 
 ### Valid function
 def val(model, device, dataloader, loss_fn):
-    model.eval()
+    model.eval().to(device)
     with torch.no_grad(): 
         list_decoded_img = []
         list_img = []
