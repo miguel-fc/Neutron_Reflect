@@ -109,7 +109,7 @@ def val(encoder, decoder, device, dataloader, loss_fn):
 
 
 #test and plot outputs
-def test(encoder,decoder,dataset,device,n=10):
+def test(encoder,decoder,dataset,device,n=10,loss_fn):
     plt.figure(figsize=(26,5.5))
     for i in range(10):
       ax = plt.subplot(2,n,i+1)
@@ -132,7 +132,7 @@ def test(encoder,decoder,dataset,device,n=10):
          ax.set_title('Reconstructed images')
     plt.show()  
 
-    
+
 def plot_ae_outputs(encoder,decoder,dataset,device,n=10):
     plt.figure(figsize=(26,5.5))
     for i in range(10):
