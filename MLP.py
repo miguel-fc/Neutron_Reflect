@@ -41,10 +41,10 @@ class MLP(nn.Module):
           self.layers.append(nn.ReLU(True))
 
     self.layers.append(nn.Linear(num_neur,nlabel)),
-    self.pepe = nn.Sequential(*self.layers)
+    self.mlp = nn.Sequential(*self.layers)
   
   def forward(self, x):
-    return self.pepe(x)
+    return self.mlp(x)
 
 ### Training function
 def fit(model, device, dataloader, loss_fn, optimizer):
