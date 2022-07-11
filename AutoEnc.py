@@ -30,17 +30,17 @@ import torch.optim as optim
 
 class Encoder(nn.Module):
     
-    def __init__(self,encoded_space_dim,dim1,dim2,num_layers):
+    def __init__(self,encoded_space_dim,dim1,dim2,num_layers,num_neur):
         super().__init__()
         
         self.layers = []
-        self.layers.append(nn.Linear(dim1 * dim2, 100))
+        self.layers.append(nn.Linear(dim1 * dim2, num_neur))
         self.layers.append(nn.ReLU(True))
         for i in range(num_layers):
-          self.layers.append(nn.Linear(100,100))
+          self.layers.append(nn.Linear(num_neur,num_neur))
           self.layers.append(nn.ReLU(True))
         
-        self.layers.append(nn.Linear(100,encoded_space_dim))
+        self.layers.append(nn.Linear(num_neur,encoded_space_dim))
 
         self.encoder = nn.Sequential(*self.layers)
         
@@ -50,18 +50,18 @@ class Encoder(nn.Module):
 
 class Decoder(nn.Module):
     
-    def __init__(self,encoded_space_dim,dim1,dim2,num_layers):
+    def __init__(self,encoded_space_dim,dim1,dim2,num_layers,num_neur):
         super().__init__()
 
         self.layers = []
         # self.decoder = nn.Sequential(
-        self.layers.append(nn.Linear(encoded_space_dim, 100))
+        self.layers.append(nn.Linear(encoded_space_dim, num_neur))
         self.layers.append(nn.ReLU(True))
         for i in range(num_layers):
-          self.layers.append(nn.Linear(100, 100))
+          self.layers.append(nn.Linear(num_neur, num_neur))
           self.layers.append(nn.ReLU(True))
         
-        self.layers.append(nn.Linear(100, dim1 * dim2))
+        self.layers.append(nn.Linear(num_neur, dim1 * dim2))
         self.decoder = nn.Sequential(*self.layers)
         
     def forward(self, x):
