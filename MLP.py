@@ -30,18 +30,20 @@ import torch.optim as optim
 #Defining a Multilayer Perceptron, MLP.
 class MLP(nn.Module):
 
-  def __init__(self,dim,nlabel):
+  def __init__(self,dim,nlabel,num_layers,num_neur):
     super().__init__()
-    self.layers = nn.Sequential(
-      nn.Linear(dim, 500),
-      nn.ReLU(),
-      nn.Linear(500, nlabel),
-      # nn.ReLU(),
-      # nn.Linear(32, nl),
-    )
 
+    self.layers = []
+    self.layers.append(nn.Linear(dim,num_neur))
+    self.layers.append(nn.ReLU(True))
+    for i in range(num_layers):
+          self.layers.append(nn.Linear(num_neur,num_neur))
+          self.layers.append(nn.ReLU(True))
+
+    self.layers.append(nn.Linear(num_neur,nlabel)),
+  
   def forward(self, x):
-    return self.layers(x)
+    return self.nn.Sequential(*self.layers)(x)
 
 ### Training function
 def fit(model, device, dataloader, loss_fn, optimizer):
