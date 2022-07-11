@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-%matplotlib inline
 import plotly.express as px
 from sklearn.metrics import mean_squared_error
 from scipy.stats import gaussian_kde, norm
