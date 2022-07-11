@@ -30,12 +30,12 @@ import torch.optim as optim
 #Defining a Multilayer Perceptron, MLP.
 class MLP(nn.Module):
 
-  def __init__(self,dim):
+  def __init__(self,dim,nlabel):
     super().__init__()
     self.layers = nn.Sequential(
-      nn.Linear(d, 500),
+      nn.Linear(dim, 500),
       nn.ReLU(),
-      nn.Linear(500, nl),
+      nn.Linear(500, nlabel),
       # nn.ReLU(),
       # nn.Linear(32, nl),
     )
