@@ -132,6 +132,31 @@ def test(encoder,decoder,dataset,device,loss_fn,in_d1,in_d2,n=10):
          ax.set_title('Reconstructed images')
     plt.show()  
 
+###test and plot outputs. Makes plots in log scale. This is only for NR plots
+def test_log(encoder,decoder,dataset,device,loss_fn,in_d1,in_d2,n=10):
+    plt.figure(figsize=(26,5.5))
+    for i in range(10):
+      ax = plt.subplot(2,n,i+1)
+      img,_ = dataset[i]
+      #Notice that below i'm loading an image only, so it needs to be flatten
+      #before entering the network
+      img = torch.flatten(img).to(device)
+      encoder.eval().to(device)
+      decoder.eval().to(device)
+      with torch.no_grad():
+         decoded_img  = decoder(encoder(img))
+         loss = loss_fn(decoded_img,img)
+         print('For image {}, the loss = {}'.format(i,loss.data))
+      plt.plot(img.cpu().reshape(in_d1,in_d2).numpy()[0],img.cpu().reshape(in_d1,in_d2).numpy()[1]) 
+      if i == n//2:
+        ax.set_title('Original images')
+      ax = plt.subplot(2, n, i + 1 + n) 
+      plt.plot(decoded_img.cpu().reshape(in_d1,in_d2).numpy()[0],decoded_img.cpu().reshape(in_d1,in_d2).numpy()[1]) 
+      if i == n//2:
+         ax.set_title('Reconstructed images')
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.show()  
 
 ###Get latent variables
 def get_latent_variables(encoder, decoder, device, dataloader):
