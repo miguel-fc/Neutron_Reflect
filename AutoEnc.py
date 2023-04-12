@@ -149,13 +149,13 @@ def test_log(encoder,decoder,dataset,device,loss_fn,in_d1,in_d2,n=10):
          print('For image {}, the loss = {}'.format(i,loss.data))
       plt.plot(img.cpu().reshape(in_d1,in_d2).numpy()[0],img.cpu().reshape(in_d1,in_d2).numpy()[1]) 
       plt.xscale('log')
-      plt.Yscale('log')
+      plt.yscale('log')
       if i == n//2:
         ax.set_title('Original images')
       ax = plt.subplot(2, n, i + 1 + n) 
       plt.plot(decoded_img.cpu().reshape(in_d1,in_d2).numpy()[0],decoded_img.cpu().reshape(in_d1,in_d2).numpy()[1]) 
       plt.xscale('log')
-      plt.Yscale('log')
+      plt.yscale('log')
       if i == n//2:
          ax.set_title('Reconstructed images')
     # plt.xscale('log')
